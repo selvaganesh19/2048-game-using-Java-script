@@ -52,9 +52,7 @@ No installation required – just click and play!
 
 ---
 
-## 📁 Project Structure
-
-``plaintext
+```plaintext
 2048-game/
 ├── static/
 │   ├── index.html         # Main HTML page
@@ -72,23 +70,19 @@ You can run the project locally with Node.js for testing purposes (optional – 
 
 ### 1. Clone the repository
 
-``bash
+```bash
 git clone https://github.com/your-username/2048-game.git
-
 cd 2048-game
+
 2. Install dependencies
-
 npm install
-
 ⚠️ This project has no production dependencies unless you are using the optional server.js. You can safely skip this step if you’re only using the static files.
 
 3. Start the local server
 node server.js
-
-5. Open in browser
+4. Open in browser
 
 http://localhost:3000
-
 
 📦 Deploying to Netlify
 Since this is a fully static project (HTML/CSS/JS only), deploying on Netlify is super easy! Here's how:
@@ -96,17 +90,17 @@ Since this is a fully static project (HTML/CSS/JS only), deploying on Netlify is
 ✅ Steps:
 Go to Netlify
 
-1.Click "Add new site" → "Import an existing project"
+Click "Add new site" → "Import an existing project"
 
-2.Connect your GitHub repository
+Connect your GitHub repository
 
-3.Configure the deploy settings:
+Configure the deploy settings:
 
-4.Build Command: Leave blank (or enter N/A)
+Build Command: Leave blank (or enter N/A)
 
-5.Publish Directory: static/
+Publish Directory: static/
 
-6.Click "Deploy Site"
+Click "Deploy Site"
 
 🎉 Done! Your 2048 game is now live at:
 
