@@ -14,7 +14,7 @@ No installation required – just click and play!
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/your-image-link.png" alt="2048 Game Screenshot" width="500"/>
+  <img src="https://github.com/user-attachments/assets/33d33b05-1c2c-4caa-ad21-4d6afcf65bcf" alt="2048 Game Screenshot" width="500"/>
   <br/>
   <em>Fully responsive design for Desktop and Mobile devices 📱💻</em>
 </p>
