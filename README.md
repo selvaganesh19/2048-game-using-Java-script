@@ -14,14 +14,19 @@ No installation required – just click and play!
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/33d33b05-1c2c-4caa-ad21-4d6afcf65bcf" alt="2048 Game Screenshot" width="500"/>
+  <img src="https://github.com/user-attachments/assets/b103fc4c-099e-48ba-a30e-9c001f0f9c76" alt="2048 Game - Desktop View" width="500"/>
   <br/>
-  <em>Fully responsive design for Desktop and Mobile devices 📱💻</em>
+  <strong>💻 Desktop View</strong>
 </p>
 
->![WhatsApp Image 2025-05-22 at 10 20 09_87125ffd](https://github.com/user-attachments/assets/704390cc-b9e7-4879-93a1-6875cf159a27)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/2280a04d-b40e-482c-ab67-4f93c5913745)" alt="2048 Game - Mobile View" width="250"/>
+  <br/>
+  <strong>📱 Mobile View</strong>
+</p>
 
----
+<p align="center"><em>Fully responsive design for both desktop and mobile devices!</em></p>
+
 
 ## ✨ Features
 
