@@ -20,7 +20,7 @@ No installation required – just click and play!
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/2280a04d-b40e-482c-ab67-4f93c5913745)" alt="2048 Game - Mobile View" width="250"/>
+  <img src="https://github.com/user-attachments/assets/2280a04d-b40e-482c-ab67-4f93c5913745" alt="2048 Game - Mobile View" width="250"/>
   <br/>
   <strong>📱 Mobile View</strong>
 </p>
