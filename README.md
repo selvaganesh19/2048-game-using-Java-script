@@ -9,7 +9,7 @@ Features a mobile-optimized UI, swipe & keyboard controls, sound effects, animat
 
 ### 🌟 Live Demo (Optional)
 
-> Coming soon – host on Netlify/Vercel/Render and update this link.
+> Hosted Link - https://my-2048-app.netlify.app/
 
 ---
 
