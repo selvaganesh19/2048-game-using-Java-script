@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>2048 Game</title>
+
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="manifest" href="/static/manifest.json" />
+  <link rel="icon" type="image/png" href="/static/2048-icon.png" />
+
+  <meta name="theme-color" content="#bbada0" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="2048 Game" />
+  <link rel="apple-touch-icon" href="/static/2048-icon.png" />
+
+  <script src="/static/script.js" defer></script>
+</head>
+<body>
+  <div class="game-wrapper">
+    <h1>2048 Game</h1>
+    <p class="instructions">Use arrow keys or swipe to move tiles</p>
+
+    <div class="game-container">
+      <div id="game-board" class="grid"></div>
+    </div>
+
+    <div class="info">
+      <p>Score: <span id="score">0</span></p>
+      <p>High Score: <span id="high-score">0</span></p>
+      <button id="restart-btn">Restart Game</button>
+    </div>
+  </div>
+
+  <div id="game-over-overlay" class="overlay hidden">
+    <div class="overlay-content">
+      <h2>Game Over!</h2>
+      <button onclick="document.getElementById('restart-btn').click()">Play Again</button>
+    </div>
+  </div>
+
+  <!-- Audio -->
+  <audio id="move-sound" src="/static/move.mp3" preload="auto"></audio>
+  <audio id="merge-sound" src="/static/merge.mp3" preload="auto"></audio>
+  <audio id="gameover-sound" src="/static/gameover.mp3" preload="auto"></audio>
+  <audio id="bg-music" src="/static/bg-music.mp3" preload="auto" loop autoplay></audio>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/static/sw.js')
+        .then(() => console.log("✅ Service Worker Registered"))
+        .catch(err => console.error("❌ SW registration failed:", err));
+    }
+
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const installBtn = document.createElement("button");
+      installBtn.textContent = "Install 2048 Game";
+      installBtn.id = "install-btn";
+      installBtn.style.position = "fixed";
+      installBtn.style.bottom = "20px";
+      installBtn.style.left = "50%";
+      installBtn.style.transform = "translateX(-50%)";
+      installBtn.style.padding = "10px 20px";
+      installBtn.style.zIndex = "9999";
+      document.body.appendChild(installBtn);
+      installBtn.addEventListener("click", () => {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(choice => {
+          if (choice.outcome === "accepted") {
+            console.log("PWA installed");
+          }
+          installBtn.remove();
+        });
+      });
+    });
+
+    // Prevent swipe-down reload
+    window.addEventListener("touchmove", function(e) {
+      if (window.scrollY === 0 && e.touches[0].clientY > 0) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+  </script>
+</body>
+</html>
