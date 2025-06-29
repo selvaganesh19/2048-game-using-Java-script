@@ -1,17 +1,18 @@
-// sw.js - Service Worker
+// sw.js - Service Worker for Netlify 2048 Game
 
-const CACHE_NAME = "2048-game-cache-v4";
+const CACHE_NAME = "2048-game-cache-v5";
 
 const urlsToCache = [
   "/",
-  "/static/style.css",
-  "/static/script.js",
-  "/static/2048-icon.png",
-  "/static/manifest.json",
-  "/static/move.mp3",
-  "/static/merge.mp3",
-  "/static/gameover.mp3",
-  "/static/bg-music.mp3"
+  "/index.html",
+  "/style.css",
+  "/script.js",
+  "/2048-icon.png",
+  "/manifest.json",
+  "/move.mp3",
+  "/merge.mp3",
+  "/gameover.mp3",
+  "/bg-music.mp3"
 ];
 
 self.addEventListener("install", event => {
