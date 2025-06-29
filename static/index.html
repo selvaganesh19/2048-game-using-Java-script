@@ -7,15 +7,14 @@
 
   <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="icon" type="image/png" href="2048-icon.png" />
-
+  <link rel="icon" href="2048-icon.png" />
   <meta name="theme-color" content="#bbada0" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="2048 Game" />
   <link rel="apple-touch-icon" href="2048-icon.png" />
 
-  <script src="script.js" defer></script>
+  <script defer src="script.js"></script>
 </head>
 <body>
   <div class="game-wrapper">
@@ -40,53 +39,67 @@
     </div>
   </div>
 
-  <!-- Audio Effects -->
+  <!-- Audio Elements -->
   <audio id="move-sound" src="move.mp3" preload="auto"></audio>
   <audio id="merge-sound" src="merge.mp3" preload="auto"></audio>
   <audio id="gameover-sound" src="gameover.mp3" preload="auto"></audio>
-  <audio id="bg-music" src="bg-music.mp3" preload="auto" loop autoplay></audio>
+  <audio id="bg-music" src="bg-music.mp3" preload="auto" loop></audio>
 
-  <!-- PWA Setup -->
   <script>
-    // Register Service Worker
+    // Service Worker registration
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js')
         .then(() => console.log("✅ Service Worker Registered"))
         .catch(err => console.error("❌ SW registration failed:", err));
     }
 
-    // PWA Install Prompt
+    // PWA Install prompt
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
 
-      if (window.matchMedia('(display-mode: standalone)').matches) return;
-
       const installBtn = document.createElement("button");
       installBtn.textContent = "Install 2048 Game";
       installBtn.id = "install-btn";
-      installBtn.style.position = "fixed";
-      installBtn.style.bottom = "20px";
-      installBtn.style.left = "50%";
-      installBtn.style.transform = "translateX(-50%)";
-      installBtn.style.padding = "10px 20px";
-      installBtn.style.zIndex = "9999";
+      installBtn.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        z-index: 9999;
+        font-weight: bold;
+        background-color: #00cec9;
+        border: none;
+        border-radius: 8px;
+        color: #2d3436;
+        cursor: pointer;
+      `;
+
       document.body.appendChild(installBtn);
 
       installBtn.addEventListener("click", () => {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then(choice => {
           if (choice.outcome === "accepted") {
-            console.log("✅ PWA Installed");
+            console.log("✅ PWA installed");
           }
           installBtn.remove();
         });
       });
     });
 
-    // Prevent Swipe Down Reload
-    window.addEventListener("touchmove", function(e) {
+    // Fix autoplay restriction: start bg music after user interaction
+    document.addEventListener("click", () => {
+      const bgMusic = document.getElementById("bg-music");
+      if (bgMusic && bgMusic.paused) {
+        bgMusic.play().catch(err => console.warn("Autoplay failed:", err));
+      }
+    }, { once: true });
+
+    // Prevent swipe-down refresh
+    window.addEventListener("touchmove", function (e) {
       if (window.scrollY === 0 && e.touches[0].clientY > 0) {
         e.preventDefault();
       }
