@@ -40,23 +40,29 @@
     </div>
   </div>
 
-  <!-- Audio -->
+  <!-- Audio Effects -->
   <audio id="move-sound" src="move.mp3" preload="auto"></audio>
   <audio id="merge-sound" src="merge.mp3" preload="auto"></audio>
   <audio id="gameover-sound" src="gameover.mp3" preload="auto"></audio>
   <audio id="bg-music" src="bg-music.mp3" preload="auto" loop autoplay></audio>
 
+  <!-- PWA Setup -->
   <script>
+    // Register Service Worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js')
         .then(() => console.log("✅ Service Worker Registered"))
         .catch(err => console.error("❌ SW registration failed:", err));
     }
 
+    // PWA Install Prompt
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
+
+      if (window.matchMedia('(display-mode: standalone)').matches) return;
+
       const installBtn = document.createElement("button");
       installBtn.textContent = "Install 2048 Game";
       installBtn.id = "install-btn";
@@ -67,18 +73,19 @@
       installBtn.style.padding = "10px 20px";
       installBtn.style.zIndex = "9999";
       document.body.appendChild(installBtn);
+
       installBtn.addEventListener("click", () => {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then(choice => {
           if (choice.outcome === "accepted") {
-            console.log("PWA installed");
+            console.log("✅ PWA Installed");
           }
           installBtn.remove();
         });
       });
     });
 
-    // Prevent swipe-down reload
+    // Prevent Swipe Down Reload
     window.addEventListener("touchmove", function(e) {
       if (window.scrollY === 0 && e.touches[0].clientY > 0) {
         e.preventDefault();
