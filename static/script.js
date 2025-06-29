@@ -1,16 +1,28 @@
-// script.js
-
 document.addEventListener("DOMContentLoaded", () => {
   const board = document.getElementById("game-board");
   const scoreElement = document.getElementById("score");
+  const highScoreElement = document.getElementById("high-score");
   const restartBtn = document.getElementById("restart-btn");
-  const installBtn = document.getElementById("install-btn");
   const moveSound = document.getElementById("move-sound");
   const mergeSound = document.getElementById("merge-sound");
+  const gameOverSound = document.getElementById("gameover-sound");
 
   let grid = Array(4).fill().map(() => Array(4).fill(0));
   let score = 0;
   let highScore = localStorage.getItem("highScore") || 0;
+
+  function updateScoreDisplay() {
+    scoreElement.textContent = score;
+    highScoreElement.textContent = highScore;
+  }
+
+  function updateHighScore() {
+    if (score > highScore) {
+      highScore = score;
+      localStorage.setItem("highScore", highScore);
+    }
+    updateScoreDisplay();
+  }
 
   function drawBoard() {
     board.innerHTML = "";
@@ -25,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
         board.appendChild(tile);
       });
     });
-    scoreElement.textContent = score;
+    updateScoreDisplay();
   }
 
   function slide(row) {
@@ -61,7 +73,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (moveSound) moveSound.play();
       generateTile();
       drawBoard();
-      if (isGameOver()) setTimeout(() => alert("Game Over!"), 200);
+      updateHighScore();
+      if (isGameOver()) {
+        if (gameOverSound) gameOverSound.play();
+        document.getElementById("game-over-overlay").classList.remove("hidden");
+      }
     }
   }
 
@@ -103,13 +119,16 @@ document.addEventListener("DOMContentLoaded", () => {
     return true;
   }
 
-  restartBtn.addEventListener("click", () => {
+  function resetGame() {
     grid = Array(4).fill().map(() => Array(4).fill(0));
     score = 0;
     generateTile();
     generateTile();
     drawBoard();
-  });
+    document.getElementById("game-over-overlay").classList.add("hidden");
+  }
+
+  restartBtn.addEventListener("click", resetGame);
 
   window.addEventListener("keydown", e => {
     if (e.key === "ArrowLeft") move("left");
@@ -118,8 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
     else if (e.key === "ArrowDown") move("down");
   });
 
-  let touchStartX = 0;
-  let touchStartY = 0;
+  let touchStartX = 0, touchStartY = 0;
   window.addEventListener("touchstart", e => {
     if (e.touches.length === 1) {
       touchStartX = e.touches[0].clientX;
@@ -140,22 +158,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  window.addEventListener("beforeinstallprompt", e => {
-    e.preventDefault();
-    deferredPrompt = e;
-    installBtn.hidden = false;
-  });
-
-  installBtn?.addEventListener("click", () => {
-    installBtn.hidden = true;
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(choice => {
-      if (choice.outcome !== "accepted") {
-        installBtn.hidden = false;
-      }
-      deferredPrompt = null;
-    });
-  });
-
-  restartBtn.click();
+  // Start Game
+  resetGame();
 });
