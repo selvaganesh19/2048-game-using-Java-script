@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>2048 Game</title>
 
-  <link rel="stylesheet" href="/static/style.css" />
-  <link rel="manifest" href="/static/manifest.json" />
-  <link rel="icon" type="image/png" href="/static/2048-icon.png" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" href="2048-icon.png" />
 
   <meta name="theme-color" content="#bbada0" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="2048 Game" />
-  <link rel="apple-touch-icon" href="/static/2048-icon.png" />
+  <link rel="apple-touch-icon" href="2048-icon.png" />
 
-  <script src="/static/script.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
   <div class="game-wrapper">
@@ -41,14 +41,14 @@
   </div>
 
   <!-- Audio -->
-  <audio id="move-sound" src="/static/move.mp3" preload="auto"></audio>
-  <audio id="merge-sound" src="/static/merge.mp3" preload="auto"></audio>
-  <audio id="gameover-sound" src="/static/gameover.mp3" preload="auto"></audio>
-  <audio id="bg-music" src="/static/bg-music.mp3" preload="auto" loop autoplay></audio>
+  <audio id="move-sound" src="move.mp3" preload="auto"></audio>
+  <audio id="merge-sound" src="merge.mp3" preload="auto"></audio>
+  <audio id="gameover-sound" src="gameover.mp3" preload="auto"></audio>
+  <audio id="bg-music" src="bg-music.mp3" preload="auto" loop autoplay></audio>
 
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/static/sw.js')
+      navigator.serviceWorker.register('sw.js')
         .then(() => console.log("✅ Service Worker Registered"))
         .catch(err => console.error("❌ SW registration failed:", err));
     }
