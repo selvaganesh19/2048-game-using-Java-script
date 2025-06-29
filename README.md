@@ -28,7 +28,8 @@ Features a mobile-optimized UI, swipe & keyboard controls, sound effects, animat
 
 ### 📷 Screenshots
 
-> *(Add screenshots here if needed – optional)*
+> ![image](https://github.com/user-attachments/assets/d3588185-42e0-4d4a-84f2-10f90d42ed7d)
+
 
 ---
 
