@@ -6,10 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const moveSound = document.getElementById("move-sound");
   const mergeSound = document.getElementById("merge-sound");
   const gameOverSound = document.getElementById("gameover-sound");
+  const bgMusic = document.getElementById("bg-music");
+  const overlay = document.getElementById("game-over-overlay");
 
-  let grid = Array(4).fill().map(() => Array(4).fill(0));
+  let grid = Array.from({ length: 4 }, () => Array(4).fill(0));
   let score = 0;
-  let highScore = localStorage.getItem("highScore") || 0;
+  let highScore = parseInt(localStorage.getItem("highScore")) || 0;
 
   function updateScoreDisplay() {
     scoreElement.textContent = score;
@@ -41,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function slide(row) {
-    let arr = row.filter(val => val);
+    const arr = row.filter(val => val);
     while (arr.length < 4) arr.push(0);
     return arr;
   }
@@ -60,12 +62,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function move(direction) {
     let moved = false;
-    let rotated = rotateGrid(direction);
+    const rotated = rotateGrid(direction);
     const newGrid = rotated.map(row => {
       const original = [...row];
       let newRow = slide(row);
       newRow = merge(newRow);
-      if (JSON.stringify(newRow) !== JSON.stringify(original)) moved = true;
+      if (JSON.stringify(original) !== JSON.stringify(newRow)) moved = true;
       return newRow;
     });
     grid = rotateGridBack(newGrid, direction);
@@ -75,8 +77,10 @@ document.addEventListener("DOMContentLoaded", () => {
       drawBoard();
       updateHighScore();
       if (isGameOver()) {
-        if (gameOverSound) gameOverSound.play();
-        document.getElementById("game-over-overlay").classList.remove("hidden");
+        setTimeout(() => {
+          if (gameOverSound) gameOverSound.play();
+          overlay.classList.remove("hidden");
+        }, 300);
       }
     }
   }
@@ -96,14 +100,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function generateTile() {
-    const emptyTiles = [];
+    const empty = [];
     grid.forEach((row, r) => {
       row.forEach((cell, c) => {
-        if (cell === 0) emptyTiles.push([r, c]);
+        if (cell === 0) empty.push([r, c]);
       });
     });
-    if (emptyTiles.length > 0) {
-      const [r, c] = emptyTiles[Math.floor(Math.random() * emptyTiles.length)];
+    if (empty.length > 0) {
+      const [r, c] = empty[Math.floor(Math.random() * empty.length)];
       grid[r][c] = Math.random() > 0.9 ? 4 : 2;
     }
   }
@@ -120,23 +124,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function resetGame() {
-    grid = Array(4).fill().map(() => Array(4).fill(0));
+    grid = Array.from({ length: 4 }, () => Array(4).fill(0));
     score = 0;
     generateTile();
     generateTile();
     drawBoard();
-    document.getElementById("game-over-overlay").classList.add("hidden");
+    overlay.classList.add("hidden");
   }
 
   restartBtn.addEventListener("click", resetGame);
 
   window.addEventListener("keydown", e => {
-    if (e.key === "ArrowLeft") move("left");
-    else if (e.key === "ArrowRight") move("right");
-    else if (e.key === "ArrowUp") move("up");
-    else if (e.key === "ArrowDown") move("down");
+    if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(e.key)) {
+      e.preventDefault();
+      move(e.key.replace("Arrow", "").toLowerCase());
+    }
   });
 
+  // Touch swipe
   let touchStartX = 0, touchStartY = 0;
   window.addEventListener("touchstart", e => {
     if (e.touches.length === 1) {
@@ -145,19 +150,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   window.addEventListener("touchend", e => {
-    if (e.changedTouches.length === 1) {
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      const dy = e.changedTouches[0].clientY - touchStartY;
-      if (Math.abs(dx) > Math.abs(dy)) {
-        if (dx > 30) move("right");
-        else if (dx < -30) move("left");
-      } else {
-        if (dy > 30) move("down");
-        else if (dy < -30) move("up");
-      }
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy)) {
+      dx > 30 ? move("right") : dx < -30 && move("left");
+    } else {
+      dy > 30 ? move("down") : dy < -30 && move("up");
     }
   });
 
-  // Start Game
+  // Autoplay background music on interaction
+  document.body.addEventListener("click", () => {
+    if (bgMusic && bgMusic.paused) {
+      bgMusic.play().catch(() => {});
+    }
+  }, { once: true });
+
+  // Init game
   resetGame();
 });
