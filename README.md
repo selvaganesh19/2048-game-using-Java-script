@@ -1,7 +1,3 @@
-Here's a complete and professional `README.md` file for your new **Modern 2048 Game** GitHub repository:
-
----
-
 ## 🧠 Modern 2048 Game – JavaScript + PWA + Sound + Animations
 
 A beautifully redesigned 2048 game built with HTML, CSS, and JavaScript.
