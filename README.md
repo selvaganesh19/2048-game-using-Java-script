@@ -93,8 +93,8 @@ Open your browser:
 
 ---
 
-### 📄 License
+## 📄 License
 
-MIT License. Feel free to fork and build your own version!
+This project is licensed under the [MIT License](LICENSE).
 
 ---
