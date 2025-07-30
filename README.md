@@ -18,7 +18,7 @@ Features a mobile-optimized UI, swipe & keyboard controls, sound effects, animat
 * 📲 PWA support (Installable on mobile & desktop)
 * 🧩 Game over overlay and restart support
 * 💾 High score saved in local storage
-* ⚡ Lightweight and fast-loadings
+* ⚡ Lightweight and fast-loading
 
 ---
 
