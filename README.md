@@ -1,7 +1,7 @@
 ## 🧠 Modern 2048 Game – JavaScript + PWA + Sound + Animations
 
 A beautifully redesigned 2048 game built with HTML, CSS, and JavaScript.
-Features a mobile-optimized UI, swipe & keyboard controls, sound effects, animations, and PWA install supports.
+Features a mobile-optimized UI, swipe & keyboard controls, sound effects, animations, and PWA install support.
 
 ### 🌟 Live  - https://my-2048-app.netlify.app/
 
