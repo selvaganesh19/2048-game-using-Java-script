@@ -86,7 +86,7 @@ Open your browser:
 
 ### ✨ Credits
 
-* Built by [Selvaganesh V](https://github.com/selvaganesh19)
+* Built by [Selvaganesh19](https://github.com/selvaganesh19)
 * Original 2048 concept by Gabriele Cirulli
 
 ---
