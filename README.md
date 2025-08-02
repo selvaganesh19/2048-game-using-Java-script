@@ -3,9 +3,7 @@
 A beautifully redesigned 2048 game built with HTML, CSS, and JavaScript.
 Features a mobile-optimized UI, swipe & keyboard controls, sound effects, animations, and PWA install support.
 
-### 🌟 Live Demo (Optional)
-
-> Hosted Link - https://my-2048-app.netlify.app/
+### 🌟 Live  - https://my-2048-app.netlify.app/
 
 ---
 
